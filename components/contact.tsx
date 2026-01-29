@@ -5,30 +5,25 @@ import { Mail, Phone, MapPin, Send, Linkedin, Github, ExternalLink } from "lucid
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { sendEmail } from "@/app/actions/send-email"
 
 export default function Contact() {
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [message, setMessage] = useState("")
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: ""
+  })
 
-  async function handleSubmit(formData: FormData) {
-    setIsSubmitting(true)
-    try {
-      const result = await sendEmail(formData)
-      if (result.success) {
-        setMessage("Message sent successfully!")
-        // Reset form
-        const form = document.getElementById("contact-form") as HTMLFormElement
-        form?.reset()
-      } else {
-        setMessage("Failed to send message. Please try again.")
-      }
-    } catch (error) {
-      setMessage("An error occurred. Please try again.")
-    } finally {
-      setIsSubmitting(false)
-      setTimeout(() => setMessage(""), 5000)
-    }
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+
+    const mailtoLink = `mailto:vsvedant0722@gmail.com?subject=${encodeURIComponent(
+      `Portfolio Contact: ${formData.subject}`
+    )}&body=${encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+    )}`
+
+    window.open(mailtoLink, "_blank")
   }
 
   return (
@@ -107,7 +102,7 @@ export default function Contact() {
 
           {/* Contact Form */}
           <div className="bg-[#444444]/10 p-8 rounded-lg border border-[#444444]">
-            <form id="contact-form" action={handleSubmit} className="space-y-6">
+            <form id="contact-form" onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-[#B0B0B0] mb-2">
@@ -118,6 +113,8 @@ export default function Contact() {
                     id="name"
                     name="name"
                     required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="bg-[#444444] border-[#444444] text-[#E0E0E0] focus:border-[#888888]"
                     placeholder="Your Name"
                   />
@@ -131,6 +128,8 @@ export default function Contact() {
                     id="email"
                     name="email"
                     required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="bg-[#444444] border-[#444444] text-[#E0E0E0] focus:border-[#888888]"
                     placeholder="your.email@example.com"
                   />
@@ -146,6 +145,8 @@ export default function Contact() {
                   id="subject"
                   name="subject"
                   required
+                  value={formData.subject}
+                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                   className="bg-[#444444] border-[#444444] text-[#E0E0E0] focus:border-[#888888]"
                   placeholder="What's this about?"
                 />
@@ -160,6 +161,8 @@ export default function Contact() {
                   name="message"
                   required
                   rows={6}
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className="bg-[#444444] border-[#444444] text-[#E0E0E0] focus:border-[#888888]"
                   placeholder="Tell me about your project or just say hello!"
                 />
@@ -167,24 +170,11 @@ export default function Contact() {
 
               <Button
                 type="submit"
-                disabled={isSubmitting}
                 className="w-full bg-[#888888] hover:bg-[#B0B0B0] text-[#E0E0E0] py-3 rounded-lg transition-colors duration-300 flex items-center justify-center space-x-2"
               >
-                {isSubmitting ? (
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                ) : (
-                  <>
-                    <Send className="w-5 h-5" />
-                    <span>Send Message</span>
-                  </>
-                )}
+                <Send className="w-5 h-5" />
+                <span>Send Message</span>
               </Button>
-
-              {message && (
-                <p className={`text-center ${message.includes("success") ? "text-green-400" : "text-red-400"}`}>
-                  {message}
-                </p>
-              )}
             </form>
           </div>
         </div>
