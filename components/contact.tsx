@@ -88,7 +88,7 @@ export default function Contact() {
                   <ExternalLink className="w-3 h-3 text-[#B0B0B0]" />
                 </a>
                 <a
-                  href="https://github.com/ved0010"
+                  href="https://github.com/vedanthq"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-[#444444] hover:bg-[#888888] p-3 rounded-lg transition-colors duration-300 flex items-center gap-2"

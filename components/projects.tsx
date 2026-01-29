@@ -29,7 +29,7 @@ const timelineData = [
     description:
       "Deployed a Netflix clone using Docker, Jenkins, and AWS EC2 with 100% automated CI/CD pipeline and comprehensive security scanning.",
     tech: ["Docker", "Jenkins", "AWS EC2", "Trivy", "SonarQube", "Prometheus", "Grafana"],
-    github: "https://github.com/ved0010",
+    github: "https://github.com/vedanthq",
     demo: "#",
     image: "/placeholder.svg?height=200&width=300",
     achievements: [
@@ -47,7 +47,7 @@ const timelineData = [
     description:
       "Developed a full-stack eCommerce site using the MERN stack with real-time product browsing, filtering, and multiple payment integrations.",
     tech: ["React.js", "Node.js", "Express.js", "MongoDB", "Stripe", "Razorpay"],
-    github: "https://github.com/ved0010",
+    github: "https://github.com/vedanthq",
     demo: "#",
     image: "/placeholder.svg?height=200&width=300",
     achievements: [
@@ -65,7 +65,7 @@ const timelineData = [
     description:
       "Built a secure authentication system for 1,000+ users with OTP-based email verification, JWT tokens, and comprehensive session management.",
     tech: ["React.js", "Node.js", "Express.js", "MongoDB", "JWT", "Tailwind CSS"],
-    github: "https://github.com/ved0010",
+    github: "https://github.com/vedanthq",
     demo: "#",
     image: "/placeholder.svg?height=200&width=300",
     achievements: [
@@ -153,9 +153,8 @@ export default function Projects() {
             {timelineData.map((item, index) => (
               <div
                 key={index}
-                className={`timeline-item ${item.side}-item relative flex ${
-                  item.side === "left" ? "justify-start" : "justify-end"
-                }`}
+                className={`timeline-item ${item.side}-item relative flex ${item.side === "left" ? "justify-start" : "justify-end"
+                  }`}
               >
                 {/* Timeline Node */}
                 <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-[#888888] rounded-full border-4 border-[#121212] z-10">
